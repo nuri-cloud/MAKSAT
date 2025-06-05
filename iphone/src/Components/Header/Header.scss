@@ -1,0 +1,217 @@
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Roboto, sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  max-width: 1024px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 90px;
+  padding: 0 20px;
+}
+
+.apple-logo {
+  fill: #1d1d1f;
+  width: 18px;
+  height: 18px;
+  padding-right: 60px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.menu-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 26px;
+}
+
+.menu-item {
+  color: #1d1d1f;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #0071e3;
+  }
+}
+
+.dropdown {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.menu-item:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  text-align: center;
+  max-width: 80%;
+  justify-content: center;
+}
+
+.dropdown-item {
+  color: #1d1d1f;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: color 0.2s ease;
+  white-space: nowrap; // Текст бир сапта турат
+  max-width: 200px; // Максималдуу туурасы
+  overflow: hidden;
+  text-overflow: ellipsis; // Батпаган тексттер "..." болуп кесилет
+
+  &:hover {
+    color: #0071e3;
+  }
+}
+
+.dropdown-loading,
+.dropdown-error,
+.dropdown-empty {
+  color: #1d1d1f;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px;
+}
+
+.search-item {
+  color: #1d1d1f;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #0071e3;
+  }
+}
+
+.search-dropdown {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.search-item:hover .search-dropdown {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-input {
+  width: 50%;
+  max-width: 600px;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-bottom: 2px solid #1d1d1f;
+  background: transparent;
+  outline: none;
+  color: #1d1d1f;
+  margin-bottom: 20px;
+  transition: border-color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    border-color: #0071e3;
+  }
+
+  &::placeholder {
+    color: #6e6e73;
+  }
+}
+
+.popular-searches {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 80%;
+  justify-content: center;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #6e6e73;
+    margin-bottom: 10px;
+    width: 100%; // h3 толук туураны ээлейт
+  }
+}
+
+.popular-search-item {
+  color: #1d1d1f;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.2s ease;
+  white-space: nowrap; // Текст бир сапта турат
+  max-width: 200px; // Максималдуу туурасы
+  overflow: hidden;
+  text-overflow: ellipsis; // Батпаган тексттер "..." болуп кесилет
+
+  &:hover {
+    color: #0071e3;
+  }
+}
