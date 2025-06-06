@@ -1,26 +1,29 @@
-
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/category/categorySlice';
-import { fetchIphone16 } from '../../redux/iphone16/iphone16Slice.js';
-import { useNavigate } from 'react-router-dom';
-import './Header.scss';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "../../redux/category/categorySlice";
+import { fetchIphone16 } from "../../redux/iphone16/iphone16Slice.js";
+import { useNavigate } from "react-router-dom";
+import "./Header.scss";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Redux стейтинен продукцияларды алуу
-  const { products, loading, error } = useSelector(state => state.products);
+  const { products, loading, error } = useSelector((state) => state.products);
 
   // ОҢДОО: Redux стейтинен iPhone 16 маалыматын туура алуу (кичине 'i' менен)
   // `state.iphone16` деп туура чакырылып жатат
-  const { products: iphone16Products, loading: iphone16Loading, error: iphone16Error } = useSelector(state => state.iphone16);
+  const {
+    products: iphone16Products,
+    loading: iphone16Loading,
+    error: iphone16Error,
+  } = useSelector((state) => state.iphone16);
 
   // Локалдык стейттер
   const [isMenuOpen, setIsMenuOpen] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Компонент жүктөлгөндө продукцияларды жана iPhone 16 маалыматын алуу
   useEffect(() => {
@@ -31,33 +34,37 @@ function Header() {
   // Продукцияларды категориялар боюнча классификациялоо
   // Маанилүү: products же iphone16Products undefined болбошу үчүн || [] колдонулат
   const categories = {
-    phone: (products || []).filter(product => product.category === 'phone'),
-    tv: (products || []).filter(product => product.category === 'tv'),
-    watch: (products || []).filter(product => product.category === 'watch'),
-    laptop: (products || []).filter(product => product.category === 'laptop'),
-    accessory: (products || []).filter(product => product.category === 'accessory'),
-    headphone: (products || []).filter(product => product.category === 'headphone'),
+    phone: (products || []).filter((product) => product.category === "phone"),
+    tv: (products || []).filter((product) => product.category === "tv"),
+    watch: (products || []).filter((product) => product.category === "watch"),
+    laptop: (products || []).filter((product) => product.category === "laptop"),
+    accessory: (products || []).filter(
+      (product) => product.category === "accessory"
+    ),
+    headphone: (products || []).filter(
+      (product) => product.category === "headphone"
+    ),
     iphone16: iphone16Products || [], // ОҢДОО: iphone16Products'ту колдонуу
   };
 
   // Меню пункттары
   const menuItems = [
-    { name: 'iPhone', key: 'phone', path: '/iphone' },
-    { name: 'TV', key: 'tv', path: '/tv' },
-    { name: 'Watch', key: 'watch', path: '/watch' },
-    { name: 'MacBook', key: 'laptop', path: '/macbook' },
-    { name: 'Accessories', key: 'accessory', path: '/accessories' },
-    { name: 'AirPods', key: 'headphone', path: '/airpods' },
-    { name: 'iPhone 16', key: 'iphone16', path: '/iphone16' }, // key: 'iphone16' (кичине i)
+    { name: "iPhone", key: "phone", path: "/iphone" },
+    { name: "TV", key: "tv", path: "/tv" },
+    { name: "Watch", key: "watch", path: "/watch" },
+    { name: "MacBook", key: "laptop", path: "/macbook" },
+    { name: "Accessories", key: "accessory", path: "/accessories" },
+    { name: "AirPods", key: "headphone", path: "/airpods" },
+    { name: "iPhone 16", key: "iphone16", path: "/iphone16" }, // key: 'iphone16' (кичине i)
   ];
 
   // Популярдуу издөөлөр
   const popularSearches = [
-    'iPhone 16 Pro',
-    'Apple Watch Ultra',
-    'MacBook Pro',
-    'AirPods Pro',
-    'Apple TV 4K',
+    "iPhone 16 Pro",
+    "Apple Watch Ultra",
+    "MacBook Pro",
+    "AirPods Pro",
+    "Apple TV 4K",
   ];
 
   // Продукцияны чыкылдатууну иштетүү
@@ -68,10 +75,11 @@ function Header() {
 
   // Издөө баскычын чыкылдатууну иштетүү
   const handleSearchClick = () => {
-    if (searchQuery.trim()) { // Эгер издөө суроосу бош эмес болсо
+    if (searchQuery.trim()) {
+      // Эгер издөө суроосу бош эмес болсо
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`); // Издөө натыйжалары барагына өтүү
       setIsSearchOpen(false); // Издөө тилкесин жабуу
-      setSearchQuery(''); // Издөө суроосун тазалоо
+      setSearchQuery(""); // Издөө суроосун тазалоо
     }
   };
 
@@ -85,7 +93,7 @@ function Header() {
           </svg>
         </div>
         <div className="menu-list">
-          {menuItems.map(item => (
+          {menuItems.map((item) => (
             <div
               key={item.key}
               className="menu-item"
@@ -96,47 +104,52 @@ function Header() {
               {isMenuOpen === item.key && (
                 <div className="dropdown">
                   {/* iPhone 16 үчүн атайын иштетүү (өзүнчө Redux стейти болгондуктан) */}
-                  {item.key === 'iphone16' ? (
+                  {item.key === "iphone16" ? (
                     iphone16Loading ? (
                       <div className="dropdown-loading">Loading...</div>
                     ) : iphone16Error ? (
-                      <div className="dropdown-error">Error: {iphone16Error}</div>
+                      <div className="dropdown-error">
+                        Error: {iphone16Error}
+                      </div>
                     ) : categories[item.key].length === 0 ? (
-                      <div className="dropdown-empty">No {item.name} available</div>
+                      <div className="dropdown-empty">
+                        No {item.name} available
+                      </div>
                     ) : (
                       <div className="dropdown-content">
-                        {categories[item.key].map(product => (
+                        {categories[item.key].map((product) => (
                           <div
                             key={product.id}
                             className="dropdown-item"
                             onClick={() => handleProductClick(product.id)}
                           >
                             {product.title}
+                            {product.title}
                           </div>
                         ))}
                       </div>
                     )
+                  ) : /* Башка категориялар үчүн жалпы иштетүү */
+                  loading ? (
+                    <div className="dropdown-loading">Loading...</div>
+                  ) : error ? (
+                    <div className="dropdown-error">Error: {error}</div>
+                  ) : categories[item.key].length === 0 ? (
+                    <div className="dropdown-empty">
+                      No {item.name} available
+                    </div>
                   ) : (
-                    /* Башка категориялар үчүн жалпы иштетүү */
-                    loading ? (
-                      <div className="dropdown-loading">Loading...</div>
-                    ) : error ? (
-                      <div className="dropdown-error">Error: {error}</div>
-                    ) : categories[item.key].length === 0 ? (
-                      <div className="dropdown-empty">No {item.name} available</div>
-                    ) : (
-                      <div className="dropdown-content">
-                        {categories[item.key].map(product => (
-                          <div
-                            key={product.id}
-                            className="dropdown-item"
-                            onClick={() => handleProductClick(product.id)}
-                          >
-                            {product.title}
-                          </div>
-                        ))}
-                      </div>
-                    )
+                    <div className="dropdown-content">
+                      {categories[item.key].map((product) => (
+                        <div
+                          key={product.id}
+                          className="dropdown-item"
+                          onClick={() => handleProductClick(product.id)}
+                        >
+                          {product.title}
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               )}
@@ -157,10 +170,10 @@ function Header() {
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearchClick()}
+                  onKeyPress={(e) => e.key === "Enter" && handleSearchClick()}
                   autoFocus
                 />
-                {searchQuery === '' && (
+                {searchQuery === "" && (
                   <div className="popular-searches">
                     <h3>Часто искали</h3>
                     {popularSearches.map((search, index) => (
